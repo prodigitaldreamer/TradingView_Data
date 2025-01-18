@@ -44,7 +44,11 @@ This project processes raw stock market data, enhances it with additional indica
 
 > **Complexity**: *O(n!)*
 
-Each line potentially looks back through many rows (up to 300) to confirm pivot points and other conditions, leading to factorial complexity. This is done deliberately to ensure maximum precision and avoid data leakage, prioritizing correctness over speed.
+The factorial complexity arises because the algorithm performs similar calculations for each candle to ensure data integrity and prevent data leakage. Specifically, for every candle (or row), the system processes up to 300 previous candles to determine pivot points, support/resistance lines, and trendlines. This approach ensures that each calculation is based solely on historical data relative to the current candle, avoiding any inadvertent inclusion of future data.
+
+For instance, identifying whether a candle is a pivot point requires evaluating its relationship with numerous preceding candles. Even if subsequent candles indicate that a previous candle was not a pivot, the information must still be recorded to maintain consistency in the dataset used for model training. This necessitates reprocessing each candle individually, resulting in operations that scale factorially with the number of candles.
+
+This design prioritizes accuracy and data integrity, essential for training models that rely on time series data without future knowledge.
 
 ---
 
@@ -101,6 +105,7 @@ Below is a simplified tree of the repository (omitting virtual environment files
 Raw CSV files must contain the following columns (with optional timezone info):
 
 time,open,high,low,close,volume
+
 2024-01-11 09:00:00+0200,5.5,5.57,5.48,5.56,945999
 2024-01-11 10:00:00+0200,5.56,5.63,5.47,5.62,612429
 …
