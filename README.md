@@ -56,47 +56,47 @@ This design prioritizes accuracy and data integrity, essential for training mode
 
 Below is a simplified tree of the repository (omitting virtual environment files, build artifacts, etc.):
 
-.
-├── README.md
-├── data_manipulation
-│   ├── process_all_data.py
-│   ├── process_data.ipynb
-│   ├── raw_data
-│   └── train.py
-├── debug.ipynb
-├── images
-│   ├── Ekran Resmi 2025-01-18 16.11.22.png
-│   ├── Ekran Resmi 2025-01-18 16.12.03.png
-│   └── Ekran Resmi 2025-01-18 16.12.32.png
-├── pivots_s_r_lines.ipynb
-├── requirements.txt
-├── src
-│   ├── build
-│   ├── classes.py
-│   ├── collected_data
-│   ├── cpp_extensions
-│   │   ├── build
-│   │   ├── dist
-│   │   ├── mistaken_logic.cpp
-│   │   ├── mistaken_logic_ext.egg-info
-│   │   └── setup.py
-│   ├── data
-│   ├── indicators.py
-│   ├── main.py
-│   ├── minimal_candle_trendline_plot.py
-│   ├── output
-│   │   ├── output_csv
-│   │   └── output_plots
-│   ├── pivots.py
-│   ├── plotting.py
-│   ├── separate_data
-│   ├── sr_levels.py
-│   ├── synthetic.py
-│   ├── test.py
-│   ├── trendlines.py
-│   └── ui.py
-└── test
-└── scrape.py
+	.
+	├── README.md
+	├── data_manipulation
+	│   ├── process_all_data.py
+	│   ├── process_data.ipynb
+	│   ├── raw_data
+	│   └── train.py
+	├── debug.ipynb
+	├── images
+	│   ├── Ekran Resmi 2025-01-18 16.11.22.png
+	│   ├── Ekran Resmi 2025-01-18 16.12.03.png
+	│   └── Ekran Resmi 2025-01-18 16.12.32.png
+	├── pivots_s_r_lines.ipynb
+	├── requirements.txt
+	├── src
+	│   ├── build
+	│   ├── classes.py
+	│   ├── collected_data
+	│   ├── cpp_extensions
+	│   │   ├── build
+	│   │   ├── dist
+	│   │   ├── mistaken_logic.cpp
+	│   │   ├── mistaken_logic_ext.egg-info
+	│   │   └── setup.py
+	│   ├── data
+	│   ├── indicators.py
+	│   ├── main.py
+	│   ├── minimal_candle_trendline_plot.py
+	│   ├── output
+	│   │   ├── output_csv
+	│   │   └── output_plots
+	│   ├── pivots.py
+	│   ├── plotting.py
+	│   ├── separate_data
+	│   ├── sr_levels.py
+	│   ├── synthetic.py
+	│   ├── test.py
+	│   ├── trendlines.py
+	│   └── ui.py
+	└── test
+	└── scrape.py
 
 ---
 
@@ -104,22 +104,22 @@ Below is a simplified tree of the repository (omitting virtual environment files
 
 Raw CSV files must contain the following columns (with optional timezone info):
 
-time,open,high,low,close,volume
-2024-01-11 09:00:00+0200,5.50,5.57,5.48,5.56,945999
-2024-01-11 10:00:00+0200,5.56,5.63,5.47,5.62,612429
-2024-01-11 11:00:00+0200,5.62,5.65,5.60,5.63,523800
+	time,open,high,low,close,volume
+	2024-01-11 09:00:00+0200,5.50,5.57,5.48,5.56,945999
+	2024-01-11 10:00:00+0200,5.56,5.63,5.47,5.62,612429
+	2024-01-11 11:00:00+0200,5.62,5.65,5.60,5.63,523800
 
-	•	time: Datetime in YYYY-MM-DD HH:MM:SS±HH:MM format
-	•	open, high, low, close: Standard OHLC data
-	•	volume: Trading volume for that period
-	•	Time intervals can be 1 hour (1H), daily, 15 minutes, or any other consistent frequency.
+•	time: Datetime in YYYY-MM-DD HH:MM:SS±HH:MM format
+•	open, high, low, close: Standard OHLC data
+•	volume: Trading volume for that period
+•	Time intervals can be 1 hour (1H), daily, 15 minutes, or any other consistent frequency.
 
-Example Input File: src/data/BIST_DLY_SYNTHETIC/60_aaaaa.csv
+Example Input File: [`src/data/BIST_DLY_SYNTHETIC/60_aaaaa.csv`](src/data/BIST_DLY_SYNTHETIC/60_aaaaa.csv)
 
-time,open,high,low,close,volume
-2024-01-11 09:00:00+0200,5.50,5.57,5.48,5.56,945999
-2024-01-11 10:00:00+0200,5.56,5.63,5.47,5.62,612429
-2024-01-11 11:00:00+0200,5.62,5.65,5.60,5.63,523800
+	time,open,high,low,close,volume
+	2024-01-11 09:00:00+0200,5.50,5.57,5.48,5.56,945999
+	2024-01-11 10:00:00+0200,5.56,5.63,5.47,5.62,612429
+	2024-01-11 11:00:00+0200,5.62,5.65,5.60,5.63,523800
 
 ---
 
@@ -127,10 +127,10 @@ time,open,high,low,close,volume
 
 Enriched CSV output includes all original columns plus additional indicators, pivots, and more:
 
-time,open,high,low,close,volume,Pivot Highs,Pivot Lows,sr_lines,EMA20,EMA50,RSI14,MACD
-2024-01-13 01:00:00+00:00,5.38,5.46,5.37,5.45,332301,,5.31;5.36;5.41;5.48,5.50,5.55,70.5,0.25
-2024-01-13 02:00:00+00:00,5.45,5.50,5.40,5.48,289450,5.46,,5.35;5.40;5.45,5.52,5.60,68.3,0.20
-2024-01-13 03:00:00+00:00,5.48,5.55,5.44,5.54,310120,,5.36;5.42;5.47,5.58,5.65,72.1,0.30
+	time,open,high,low,close,volume,Pivot Highs,Pivot Lows,sr_lines,EMA20,EMA50,RSI14,MACD
+	2024-01-13 01:00:00+00:00,5.38,5.46,5.37,5.45,332301,,5.31;5.36;5.41;5.48,5.50,5.55,70.5,0.25
+	2024-01-13 02:00:00+00:00,5.45,5.50,5.40,5.48,289450,5.46,,5.35;5.40;5.45,5.52,5.60,68.3,0.20
+	2024-01-13 03:00:00+00:00,5.48,5.55,5.44,5.54,310120,,5.36;5.42;5.47,5.58,5.65,72.1,0.30
 
 Where additional columns may include:
 	•	Pivot Highs / Pivot Lows
@@ -140,9 +140,9 @@ Where additional columns may include:
 	•	MACD (signal & histogram)
 	•	Bollinger Bands (upper, middle, lower)
 
-Example Output File: src/output/output_csv/BIST_DLY_SYNTHETIC/60_aaaaa_final.csv
+Example Output File: [`src/output/output_csv/BIST_DLY_SYNTHETIC/60_aaaaa_final.csv`](src/output/output_csv/BIST_DLY_SYNTHETIC/60_aaaaa_final.csv)
 
-Example Output Plot: src/output/output_plots/BIST_DLY_SYNTHETIC/60_aaaaa_chart.png
+Example Output Plot: [`src/output/output_plots/BIST_DLY_SYNTHETIC/60_aaaaa_chart.png`](src/output/output_plots/BIST_DLY_SYNTHETIC/60_aaaaa_chart.png)
 
 ---
 
