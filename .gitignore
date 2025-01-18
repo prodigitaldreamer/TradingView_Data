@@ -1,0 +1,9 @@
+# Exclude all .csv and .png files
+*.csv
+*.png
+
+# Exclude the __pycache__ directory in the src folder
+src/__pycache__/
+
+# Exclude the virtual environment folder
+venv/
