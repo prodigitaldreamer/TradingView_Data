@@ -200,4 +200,4 @@ Below are a few sample screenshots demonstrating the GUI, the final charts with 
 ---
 
 ## License
-This project is licensed under the [Apache License 2.0](LICENSE).
+This project is licensed under the [Apache-2.0 License](LICENSE).
