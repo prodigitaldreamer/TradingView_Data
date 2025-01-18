@@ -198,3 +198,6 @@ Below are a few sample screenshots demonstrating the GUI, the final charts with 
 ![Minimal Candle & Trend Lines Plot](images/Ekran%20Resmi%202025-01-18%2016.12.32.png)
 
 ---
+
+## License
+This project is licensed under the [Apache License 2.0](LICENSE).
